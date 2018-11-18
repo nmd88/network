@@ -1,27 +1,5 @@
-
-
-
-
-
-
-Network Working Group                                P. Saint-Andre, Ed.
-Request for Comments: 3920                    Jabber Software Foundation
-Category: Standards Track                                   October 2004
-
-
-        Extensible Messaging and Presence Protocol (XMPP): Core
-
-Status of this Memo
-
-   This document specifies an Internet standards track protocol for the
-   Internet community, and requests discussion and suggestions for
-   improvements.  Please refer to the current edition of the "Internet
-   Official Protocol Standards" (STD 1) for the standardization state
-   and status of this protocol.  Distribution of this memo is unlimited.
-
-Copyright Notice
-
-   Copyright (C) The Internet Society (2004).
+Extensible Messaging and Presence Protocol (XMPP): Core
+---
 
 Abstract
 
@@ -31,51 +9,40 @@ Abstract
 
 Table of Contents
 
-   1.   Introduction . . . . . . . . . . . . . . . . . . . . . . . .   2
-   2.   Generalized Architecture . . . . . . . . . . . . . . . . . .   3
-   3.   Addressing Scheme  . . . . . . . . . . . . . . . . . . . . .   5
-   4.   XML Streams  . . . . . . . . . . . . . . . . . . . . . . . .   7
-   5.   Use of TLS . . . . . . . . . . . . . . . . . . . . . . . . .  19
-   6.   Use of SASL  . . . . . . . . . . . . . . . . . . . . . . . .  27
-   7.   Resource Binding . . . . . . . . . . . . . . . . . . . . . .  37
-   8.   Server Dialback  . . . . . . . . . . . . . . . . . . . . . .  41
-   9.   XML Stanzas  . . . . . . . . . . . . . . . . . . . . . . . .  48
-   10.  Server Rules for Handling XML Stanzas  . . . . . . . . . . .  58
-   11.  XML Usage within XMPP  . . . . . . . . . . . . . . . . . . .  60
-   12.  Core Compliance Requirements . . . . . . . . . . . . . . . .  62
-   13.  Internationalization Considerations  . . . . . . . . . . . .  64
-   14.  Security Considerations  . . . . . . . . . . . . . . . . . .  64
-   15.  IANA Considerations  . . . . . . . . . . . . . . . . . . . .  69
-   16.  References . . . . . . . . . . . . . . . . . . . . . . . . .  71
-   A.   Nodeprep . . . . . . . . . . . . . . . . . . . . . . . . . .  75
-   B.   Resourceprep . . . . . . . . . . . . . . . . . . . . . . . .  76
-   C.   XML Schemas  . . . . . . . . . . . . . . . . . . . . . . . .  78
-   D.   Differences Between Core Jabber Protocols and XMPP . . . . .  87
-   Contributors. . . . . . . . . . . . . . . . . . . . . . . . . . .  89
-   Acknowledgements. . . . . . . . . . . . . . . . . . . . . . . . .  89
-   Author's Address. . . . . . . . . . . . . . . . . . . . . . . . .  89
-   Full Copyright Statement. . . . . . . . . . . . . . . . . . . . .  90
+   1.   Introduction
+   2.   Generalized Architecture
+   3.   Addressing Scheme
+   4.   XML Streams 
+   5.   Use of TLS  
+   6.   Use of SASL 
+   7.   Resource Binding 
+   8.   Server Dialback  
+   9.   XML Stanzas 
+   10.  Server Rules for Handling XML Stanzas
+   11.  XML Usage within XMPP  
+   12.  Core Compliance Requirements 
+   13.  Internationalization Considerations  
+   14.  Security Considerations 
+   15.  IANA Considerations 
+   16.  References  
+   A.   Nodeprep  
+   B.   Resourceprep  
+   C.   XML Schemas   
+   D.   Differences Between Core Jabber Protocols and XMPP
+   Contributors 
+   Acknowledgements
+   Author's Address
+   Full Copyright Statement
 
 1.  Introduction
-
-1.1.  Overview
-
 The Extensible Messaging and Presence Protocol (XMPP) is an open Extensible Markup Language [XML] protocol for near-real-time messaging, presence, and request-response services.  The basic syntax and semantics were developed originally within the Jabber open-source community, mainly in 1999.  In 2002, the XMPP WG was chartered with developing an adaptation of the Jabber protocol that would be suitable as an IETF instant messaging (IM) and presence technology. As a result of work by the XMPP WG, the current memo defines the core features of XMPP 1.0; the extensions required to provide the instant messaging and presence functionality defined in RFC 2779 [IMP-REQS] are specified in the Extensible Messaging and Presence Protocol (XMPP): Instant Messaging and Presence [XMPP-IM].
-
-1.2.  Terminology
-
-   The capitalized key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
-   "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in BCP
-   14, RFC 2119 [TERMS].
-
 2.  Generalized Architecture
 
 2.1.  Overview
 
-   Although XMPP is not wedded to any specific network architecture, to date it usually has been implemented via a client-server architecture wherein a client utilizing XMPP accesses a server over a [TCP] connection, and servers also communicate with each other over TCP connections.
+Although XMPP is not wedded to any specific network architecture, to date it usually has been implemented via a client-server architecture wherein a client utilizing XMPP accesses a server over a [TCP] connection, and servers also communicate with each other over TCP connections.
 
-   The following diagram provides a high-level overview of this architecture (where "-" represents communications that use XMPP and "=" represents communications that use any other protocol).
+The following diagram provides a high-level overview of this architecture (where "-" represents communications that use XMPP and "=" represents communications that use any other protocol).
 
    C1----S1---S2---C3
          |
@@ -95,7 +62,7 @@ The Extensible Messaging and Presence Protocol (XMPP) is an open Extensible Mark
 
 2.2.  Server
 
-   A server acts as an intelligent abstraction layer for XMPP communications.  Its primary responsibilities are:
+A server acts as an intelligent abstraction layer for XMPP communications.  Its primary responsibilities are:
 
    o  to manage connections from or sessions for other entities, in the form of XML streams (Section 4) to and from authorized clients, servers, and other entities
 
@@ -105,23 +72,23 @@ The Extensible Messaging and Presence Protocol (XMPP) is an open Extensible Mark
 
 2.3.  Client
 
-   Most clients connect directly to a server over a [TCP] connection and use XMPP to take full advantage of the functionality provided by a server and any associated services.  Multiple resources (e.g., devices or locations) MAY connect simultaneously to a server on behalf of each authorized client, with each resource differentiated by the resource identifier of an XMPP address (e.g., <node@domain/ home> vs. <node@domain/work>) as defined under Addressing Scheme (Section 3).  The RECOMMENDED port for connections between a client and a server is 5222, as registered with the IANA (see Port Numbers (Section 15.9)).
+Most clients connect directly to a server over a [TCP] connection and use XMPP to take full advantage of the functionality provided by a server and any associated services.  Multiple resources (e.g., devices or locations) MAY connect simultaneously to a server on behalf of each authorized client, with each resource differentiated by the resource identifier of an XMPP address (e.g., <node@domain/ home> vs. <node@domain/work>) as defined under Addressing Scheme (Section 3).  The RECOMMENDED port for connections between a client and a server is 5222, as registered with the IANA (see Port Numbers (Section 15.9)).
 
 2.4.  Gateway
 
-   A gateway is a special-purpose server-side service whose primary function is to translate XMPP into the protocol used by a foreign (non-XMPP) messaging system, as well as to translate the return data back into XMPP.  Examples are gateways to email (see [SMTP]), Internet Relay Chat (see [IRC]), SIMPLE (see [SIMPLE]), Short Message Service (SMS), and legacy instant messaging services such as AIM, ICQ, MSN Messenger, and Yahoo! Instant Messenger.  Communications between gateways and servers, and between gateways and the foreign messaging system, are not defined in this document.
+A gateway is a special-purpose server-side service whose primary function is to translate XMPP into the protocol used by a foreign (non-XMPP) messaging system, as well as to translate the return data back into XMPP.  Examples are gateways to email (see [SMTP]), Internet Relay Chat (see [IRC]), SIMPLE (see [SIMPLE]), Short Message Service (SMS), and legacy instant messaging services such as AIM, ICQ, MSN Messenger, and Yahoo! Instant Messenger.  Communications between gateways and servers, and between gateways and the foreign messaging system, are not defined in this document.
 
 2.5.  Network
 
-   Because each server is identified by a network address and because server-to-server communications are a straightforward extension of the client-to-server protocol, in practice, the system consists of a network of servers that inter-communicate.  Thus, for example, <juliet@example.com> is able to exchange messages, presence, and other information with <romeo@example.net>.  This pattern is familiar from messaging protocols (such as [SMTP]) that make use of network addressing standards.  Communications between any two servers are OPTIONAL.  If enabled, such communications SHOULD occur over XML streams that are bound to [TCP] connections.  The RECOMMENDED port for connections between servers is 5269, as registered with the IANA (see Port Numbers (Section 15.9)).
+Because each server is identified by a network address and because server-to-server communications are a straightforward extension of the client-to-server protocol, in practice, the system consists of a network of servers that inter-communicate.  Thus, for example, <juliet@example.com> is able to exchange messages, presence, and other information with <romeo@example.net>.  This pattern is familiar from messaging protocols (such as [SMTP]) that make use of network addressing standards.  Communications between any two servers are OPTIONAL.  If enabled, such communications SHOULD occur over XML streams that are bound to [TCP] connections.  The RECOMMENDED port for connections between servers is 5269, as registered with the IANA (see Port Numbers (Section 15.9)).
 
 3.  Addressing Scheme
 
 3.1.  Overview
 
-   An entity is anything that can be considered a network endpoint (i.e., an ID on the network) and that can communicate using XMPP. All such entities are uniquely addressable in a form that is consistent with RFC 2396 [URI].  For historical reasons, the address of an XMPP entity is called a Jabber Identifier or JID.  A valid JID contains a set of ordered elements formed of a domain identifier, node identifier, and resource identifier.
+An entity is anything that can be considered a network endpoint (i.e., an ID on the network) and that can communicate using XMPP. All such entities are uniquely addressable in a form that is consistent with RFC 2396 [URI].  For historical reasons, the address of an XMPP entity is called a Jabber Identifier or JID.  A valid JID contains a set of ordered elements formed of a domain identifier, node identifier, and resource identifier.
 
-   The syntax for a JID is defined below using the Augmented Backus-Naur Form as defined in [ABNF].  (The IPv4address and IPv6address rules are defined in Appendix B of [IPv6]; the allowable character sequences that conform to the node rule are defined by the Nodeprep profile of [STRINGPREP] as documented in Appendix A of this memo; the allowable character sequences that conform to the resource rule are defined by the Resourceprep profile of [STRINGPREP] as documented in Appendix B of this memo; and the sub-domain rule makes reference to the concept of an internationalized domain label as described in [IDNA].)
+The syntax for a JID is defined below using the Augmented Backus-Naur Form as defined in [ABNF].  (The IPv4address and IPv6address rules are defined in Appendix B of [IPv6]; the allowable character sequences that conform to the node rule are defined by the Nodeprep profile of [STRINGPREP] as documented in Appendix A of this memo; the allowable character sequences that conform to the resource rule are defined by the Resourceprep profile of [STRINGPREP] as documented in Appendix B of this memo; and the sub-domain rule makes reference to the concept of an internationalized domain label as described in [IDNA].)
 
 
       jid             = [ node "@" ] domain [ "/" resource ]
@@ -130,22 +97,14 @@ The Extensible Messaging and Presence Protocol (XMPP) is an open Extensible Mark
       sub-domain      = (internationalized domain label)
       address-literal = IPv4address / IPv6address
 
-   All JIDs are based on the foregoing structure.  The most common use of this structure is to identify an instant messaging user, the server to which the user connects, and the user's connected resource (e.g., a specific client) in the form of <user@host/resource>. However, node types other than clients are possible; for example, a specific chat room offered by a multi-user chat service could be addressed as <room@service> (where "room" is the name of the chat room and "service" is the hostname of the multi-user chat service) and a specific occupant of such a room could be addressed as <room@service/nick> (where "nick" is the occupant's room nickname). Many other JID types are possible (e.g., <domain/resource> could be a server-side script or service).
+All JIDs are based on the foregoing structure.  The most common use of this structure is to identify an instant messaging user, the server to which the user connects, and the user's connected resource (e.g., a specific client) in the form of <user@host/resource>. However, node types other than clients are possible; for example, a specific chat room offered by a multi-user chat service could be addressed as <room@service> (where "room" is the name of the chat room and "service" is the hostname of the multi-user chat service) and a specific occupant of such a room could be addressed as <room@service/nick> (where "nick" is the occupant's room nickname). Many other JID types are possible (e.g., <domain/resource> could be a server-side script or service).
 
-   Each allowable portion of a JID (node identifier, domain identifier, and resource identifier) MUST NOT be more than 1023 bytes in length, resulting in a maximum total size (including the '@' and '/' separators) of 3071 bytes.
+Each allowable portion of a JID (node identifier, domain identifier, and resource identifier) MUST NOT be more than 1023 bytes in length, resulting in a maximum total size (including the '@' and '/' separators) of 3071 bytes.
 
 
 3.2.  Domain Identifier
 
-   The domain identifier is the primary identifier and is the only
-   REQUIRED element of a JID (a mere domain identifier is a valid JID).
-   It usually represents the network gateway or "primary" server to
-   which other entities connect for XML routing and data management
-   capabilities.  However, the entity referenced by a domain identifier
-   is not always a server, and may be a service that is addressed as a
-   subdomain of a server that provides functionality above and beyond
-   the capabilities of a server (e.g., a multi-user chat service, a user
-   directory, or a gateway to a foreign messaging system).
+The domain identifier is the primary identifier and is the only REQUIRED element of a JID (a mere domain identifier is a valid JID). It usually represents the network gateway or "primary" server to which other entities connect for XML routing and data management capabilities.  However, the entity referenced by a domain identifier is not always a server, and may be a service that is addressed as a subdomain of a server that provides functionality above and beyond the capabilities of a server (e.g., a multi-user chat service, a user directory, or a gateway to a foreign messaging system).
 
    The domain identifier for every server or service that will
    communicate over a network MAY be an IP address but SHOULD be a fully
